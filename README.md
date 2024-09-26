@@ -1,3 +1,5 @@
+![Telegram](https://img.shields.io/badge/Telegram-Join%20Chat-blue.svg) [![Telegram](https://img.icons8.com/color/48/000000/telegram-app.png)](https://t.me/maho9s)
+
 # استخراج النصوص من الصور باستخدام Tesseract.js
 
 هذا المشروع هو صفحة ويب تفاعلية تُستخدم لاستخراج النصوص من الصور باستخدام مكتبة [Tesseract.js](https://tesseract.projectnaptha.com/). يسمح التطبيق للمستخدمين بتحميل صورة، ثم اختيار اللغة التي تحتوي عليها النصوص في الصورة، ومن ثم استخراج النص باستخدام تقنيات التعرف على النصوص (OCR).
