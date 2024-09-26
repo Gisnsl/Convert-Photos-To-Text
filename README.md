@@ -1,5 +1,3 @@
-![Telegram](https://img.shields.io/badge/Telegram-Join%20Chat-blue.svg) [![Telegram](https://img.icons8.com/color/48/000000/telegram-app.png)](https://t.me/maho9s)
-
 # استخراج النصوص من الصور باستخدام Tesseract.js
 
 هذا المشروع هو صفحة ويب تفاعلية تُستخدم لاستخراج النصوص من الصور باستخدام مكتبة [Tesseract.js](https://tesseract.projectnaptha.com/). يسمح التطبيق للمستخدمين بتحميل صورة، ثم اختيار اللغة التي تحتوي عليها النصوص في الصورة، ومن ثم استخراج النص باستخدام تقنيات التعرف على النصوص (OCR).
@@ -19,14 +17,12 @@
 ## التثبيت:
 لا حاجة إلى التثبيت! فقط افتح ملف `index.html` في متصفحك المفضل واستمتع باستخدام التطبيق.
 
-## روابط ذات صلة:
-[![Telegram](https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg | width=20)](https://t.me/maho9s)
-
-اضغط على الأيقونة الصغيرة للانتقال إلى قناة Telegram الخاصة بي.
 
 ## المطور:
 - **AHMED**
 - جميع حقوق الطبع والنشر محفوظة للمطور AHMED.
+- **قناتي على التيليجرام**
+![Telegram](https://img.shields.io/badge/Telegram-Join%20Chat-blue.svg) [![Telegram](https://img.icons8.com/color/48/000000/telegram-app.png)](https://t.me/maho9s)
 
 > **Note:** هذا المشروع يستخدم مكتبة Tesseract.js، وهي مكتبة مفتوحة المصدر توفر تقنية التعرف الضوئي على الحروف (OCR) في متصفحات الويب.
 ￼Enter
