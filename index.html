@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Photos By AHMED</title>
+    <style>       
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            transition: background-color 0.5s ease-in-out;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+        label, p {
+            font-size: 1.2em;
+        }  
+        input, select, button {
+            margin: 10px;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            background-color: #ecf0f1;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        input:hover, select:hover, button:hover {
+            transform: scale(1.05);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        
+        #result-container {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease-in-out;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        #progress-bar {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            height: 30px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            display: none;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        #progress-bar div {
+            height: 100%;
+            background-color: #3498db;
+            width: 0;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #2980b9;
+        }
+
+        
+        .telegram-logo {
+            width: 24px;
+            vertical-align: middle;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+        .telegram-logo:hover {
+            transform: scale(1.1);
+        }
+    </style>
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <h1>استخراج النصوص من الصور</h1>
+
+    
+    <input type="file" id="image-input" accept="image/*" style="width: 80%; max-width: 400px;">
+
+    
+    <label for="language-select">اختر اللغة:</label>
+    <select id="language-select" style="width: 80%; max-width: 400px;">
+        <option value="eng">الإنجليزية</option>
+        <option value="ara">العربية</option>
+        <option value="tur">التركية</option>
+        <option value="fra">الفرنسية</option>
+        <option value="deu">الألمانية</option>
+        <option value="spa">الإسبانية</option>
+        <option value="ita">الإيطالية</option>
+    </select>
+
+   
+    <button onclick="extractText()">تحويل النص</button>
+
+    
+    <div id="progress-bar">
+        <div></div>
+    </div>
+
+ 
+    <div id="result-container">
+        <p id="result">النص سيظهر هنا بعد التحويل...</p>
+    </div>
+
+ 
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+
+    <script>
+        function extractText() {
+            const imageInput = document.getElementById('image-input');
+            const languageSelect = document.getElementById('language-select');
+            const result = document.getElementById('result');
+            const progressBar = document.getElementById('progress-bar');
+            const progressBarFill = progressBar.querySelector('div');
+
+            if (imageInput.files.length === 0) {
+                result.textContent = 'يرجى اختيار صورة.';
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const selectedLanguage = languageSelect.value;
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const image = new Image();
+                image.src = reader.result;
+
+                
+                progressBar.style.display = 'block';
+                progressBarFill.style.width = '0';
+
+
+                Tesseract.recognize(image.src, selectedLanguage, {
+                    logger: (info) => {
+                        if (info.status === 'recognizing text') {
+                            const progress = Math.round(info.progress * 100);
+                            progressBarFill.style.width = progress + '%';
+                        }
+                    }
+                }).then(({ data: { text } }) => {
+                    result.textContent = text;
+                    progressBar.style.display = 'none';
+                }).catch(err => {
+                    result.textContent = 'حدث خطأ أثناء استخراج النص: ' + err.message;
+                    progressBar.style.display = 'none'; 
+                });
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+
+    <footer>
+        <p>Developer: AHMED | حقوق الطبع محفوظة</p>
+        <p>زوروا قناتنا على تليجرام: <a href="https://t.me/maho9s" target="_blank"><img class="telegram-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo"> @maho9s</a></p>
+    </footer>
+
+</body>
+</html>
